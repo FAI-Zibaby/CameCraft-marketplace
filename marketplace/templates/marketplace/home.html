@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Welcome to <span>CameCraft</span></h1>
+        <p>Discover authentic handmade treasures from Cameroonian artisans</p>
+        <div class="search-box">
+            <input type="text" placeholder="Search products...">
+            <button class="btn-yellow">Search</button>
+        </div>
+    </div>
+
+    <!-- Featured Products -->
+    <div class="container">
+        <div class="section-title">
+            <h2>Featured Products</h2>
+            <p>Handcrafted with tradition and passion</p>
+            <hr style="width: 50px; border: 2px solid #ffc107; margin: 15px auto;">
+        </div>
+
+        <div class="product-grid">
+            {% for product in products %}
+                <div class="product-card">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.title }}">
+                    {% else %}
+                        <img src="https://via.placeholder.com/300x200?text=No+Image" alt="Placeholder">
+                    {% endif %}
+                    <div class="product-info">
+                        <h3>{{ product.title }}</h3>
+                        <p class="price">{{ product.price|intcomma }} FCFA</p>
+                        <p style="font-size: 0.9rem; color: #555;">{{ product.description|truncatechars:60 }}</p>
+                    </div>
+                </div>
+            {% empty %}
+                <p style="text-align: center; width: 100%;">No products found yet. Add some in the admin panel!</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
