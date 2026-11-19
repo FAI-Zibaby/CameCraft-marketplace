@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="max-width: 450px; margin: 50px auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+    <h2 style="text-align: center; margin-bottom: 20px; color: #333;">Join CameCraft</h2>
+    <p style="text-align: center; color: #666; margin-bottom: 20px;">Create an account to start buying or selling.</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        <!-- This loop renders the form fields cleanly -->
+        {% for field in form %}
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: bold; color: #444;">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                    <small style="display: block; color: #888; margin-top: 5px; font-size: 0.8rem;">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                    <p style="color: red; font-size: 0.85rem; margin-top: 5px;">{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        <button type="submit" class="btn-blue" style="width: 100%; margin-top: 15px; cursor: pointer; padding: 12px; font-size: 1rem;">Sign Up</button>
+    </form>
+    
+    <p style="text-align: center; margin-top: 20px; color: #555;">
+        Already have an account? <a href="{% url 'login' %}" style="color: #0d6efd; text-decoration: none;">Login here</a>
+    </p>
+</div>
+
+<!-- A tiny bit of CSS to make the form fields look nice -->
+<style>
+    input[type="text"], input[type="password"], input[type="email"], select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box; /* Ensures padding doesn't affect width */
+    }
+    input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, select:focus {
+        border-color: #0d6efd;
+        outline: none;
+    }
+</style>
+{% endblock %}

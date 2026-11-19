@@ -8,6 +8,18 @@ class Profile(models.Model):
     bio = models.TextField(max_length=500, blank=True)
     location = models.CharField(max_length=100, blank=True)
 
+    ROLE_CHOICES = (
+        ('buyer', 'Buyer'),
+        ('artisan', 'Artisan (Seller)'),
+        ('admin', 'Administrator'),
+    )
+    
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    bio = models.TextField(max_length=500, blank=True)
+    location = models.CharField(max_length=100, blank=True)
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='buyer') # <--- New field
+
     def __str__(self):
         return f'{self.user.username} Profile'
 

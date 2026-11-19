@@ -36,9 +36,25 @@
     <nav class="navbar">
         <div class="logo"><strong>CameCraft</strong></div>
         <div>
-            <a href="#">Dashboard</a>
-            <a href="#" class="btn-blue">Logout</a>
-        </div>
+    <!-- Inside the navbar, replace the old Dashboard link with this: -->
+{% if user.is_authenticated %}
+    {% if user.profile.role == 'artisan' %}
+        <a href="{% url 'artisan_dashboard' %}">Artisan Dashboard</a>
+    {% elif user.profile.role == 'admin' %}
+        <a href="{% url 'admin:index' %}">Admin Panel</a>
+    {% else %}
+        <a href="{% url 'buyer_dashboard' %}">Buyer Dashboard</a>
+    {% endif %}
+    
+    <span style="margin-left: 20px;">Hi, {{ user.username }}!</span>
+    <!-- ... (Keep the logout form) ... -->
+
+    <fencedframeorm method="post" action="{% url 'logout' %}" style="display: inline;">
+        {% csrf_token %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'register' %}" class="btn-blue">Register</a>
+    {% endif %}
+</div>
     </nav>
 
     <!-- Main Content -->

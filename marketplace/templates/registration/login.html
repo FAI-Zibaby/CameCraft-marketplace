@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="max-width: 400px; margin: 50px auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+    <h2 style="text-align: center; margin-bottom: 20px;">Login to CameCraft</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        <!-- Django's built-in login form will render here -->
+        {{ form.as_p }}
+        <button type="submit" class="btn-blue" style="width: 100%; margin-top: 15px; cursor: pointer;">Login</button>
+    </form>
+    
+    <p style="text-align: center; margin-top: 15px;">
+        Don't have an account? <a href="{% url 'register' %}" style="color: #0d6efd;">Register here</a>
+    </p>
+</div>
+{% endblock %}
